@@ -1,0 +1,52 @@
+# Gradle files
+.gradle/
+build/
+**/build/
+!gradle/wrapper/gradle-wrapper.jar  # Keep this — needed for others to build your project
+
+# Local configuration
+local.properties
+
+# IntelliJ/Android Studio project files
+.idea/
+*.iml
+
+# macOS system files
+.DS_Store
+
+# Android generated files
+captures/
+.externalNativeBuild/
+.cxx/
+outputs/
+
+# Log and cache files
+*.log
+*.lock
+
+# Ignore dependency caches
+.gradle/
+gradle-app.setting
+
+# Generated APKs / bundles
+*.apk
+*.ap_
+*.aab
+
+# Keystore files (very sensitive — don’t upload)
+*.keystore
+*.jks
+
+# Firebase / Crashlytics build files
+app/fabric.properties
+google-services.json
+
+# Misc
+.vscode/
+.env
+
+# NDK or CMake generated intermediates
+*.o
+*.so
+*.obj
+*.bin
