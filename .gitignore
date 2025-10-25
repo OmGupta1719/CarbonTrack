@@ -50,3 +50,6 @@ google-services.json
 *.so
 *.obj
 *.bin
+
+
+backend/venv/
