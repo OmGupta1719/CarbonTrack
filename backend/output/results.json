@@ -1,16 +1,45 @@
 {
     "summary": {
-        "total_posts": 1,
-        "total_comments": 3,
-        "total_carbon_gCO2e": 0.218
+        "username": "TooGlamToGiveADamn_",
+        "account_age_days": 3,
+        "comment_karma": 0,
+        "link_karma": 1,
+        "total_posts": 2,
+        "total_comments": 4,
+        "total_upvotes_posts": 2,
+        "total_downvotes_posts": 0,
+        "media_intensity": 0.25,
+        "total_carbon_gCO2e": 0.348
     },
     "detailed": [
         {
+            "title_length": 16,
+            "selftext_length": 41,
+            "score": 1,
+            "upvote_ratio": 1.0,
+            "num_comments": 1,
+            "upvotes": 1,
+            "downvotes": 0,
+            "subreddit": "u_TooGlamToGiveADamn_",
+            "is_video": false,
+            "is_self": true,
+            "engagement": 2,
+            "media_intensity": 0,
+            "post_carbon_gCO2e": 0.115
+        },
+        {
             "title_length": 4,
+            "selftext_length": 15,
             "score": 1,
             "upvote_ratio": 1.0,
             "num_comments": 3,
+            "upvotes": 1,
+            "downvotes": 0,
+            "subreddit": "u_TooGlamToGiveADamn_",
+            "is_video": false,
+            "is_self": false,
             "engagement": 4,
+            "media_intensity": 0.5,
             "post_carbon_gCO2e": 0.173
         }
     ]

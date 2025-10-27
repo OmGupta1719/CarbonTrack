@@ -1,5 +1,5 @@
 import json
-from reddit_api.fetch_user_data import fetch_user_submissions, fetch_user_comments
+from reddit_api.fetch_user_data import fetch_user_submissions, fetch_user_comments, fetch_user_metadata, get_reddit_client
 from analysis.metrics_extractor import extract_submission_metrics
 from analysis.carbon_estimator import estimate_post_carbon, estimate_comment_carbon
 
@@ -7,14 +7,18 @@ from analysis.carbon_estimator import estimate_post_carbon, estimate_comment_car
 def main():
     print("🔐 Fetching your Reddit account data...")
 
-    # Fetch data
+    reddit = get_reddit_client()
+    user_info = fetch_user_metadata(reddit)
     submissions = fetch_user_submissions(limit=50)
     comments = fetch_user_comments(limit=50)
 
-    print("✅ Logged in and fetched data successfully.")
+    print(f"✅ Logged in as: {user_info['username']}")
     print("📊 Processing posts and comments...")
 
     results = []
+    total_upvotes_posts = 0
+    total_downvotes_posts = 0
+    total_media_intensity = 0
 
     # Process posts
     for s in submissions:
@@ -23,6 +27,12 @@ def main():
         s_metrics["post_carbon_gCO2e"] = round(post_carbon, 3)
         results.append(s_metrics)
 
+        total_upvotes_posts += s_metrics.get("upvotes", 0)
+        total_downvotes_posts += s_metrics.get("downvotes", 0)
+        total_media_intensity += s_metrics.get("media_intensity", 0)
+
+    avg_media_intensity = total_media_intensity / len(submissions) if submissions else 0
+
     # Process comments separately
     comments_carbon_total = 0
     for c in comments:
@@ -30,11 +40,18 @@ def main():
 
     print(f"✅ Processed {len(submissions)} posts and {len(comments)} comments.")
 
-    # Combine total carbon
+    # Combine totals
     total_carbon = sum(r["post_carbon_gCO2e"] for r in results) + comments_carbon_total
     summary = {
+        "username": user_info["username"],
+        "account_age_days": user_info["account_age_days"],
+        "comment_karma": user_info["comment_karma"],
+        "link_karma": user_info["link_karma"],
         "total_posts": len(submissions),
         "total_comments": len(comments),
+        "total_upvotes_posts": total_upvotes_posts,
+        "total_downvotes_posts": total_downvotes_posts,
+        "media_intensity": round(avg_media_intensity, 3),
         "total_carbon_gCO2e": round(total_carbon, 3),
     }
 
