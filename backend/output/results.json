@@ -1,1 +1,17 @@
-[]
+{
+    "summary": {
+        "total_posts": 1,
+        "total_comments": 3,
+        "total_carbon_gCO2e": 0.218
+    },
+    "detailed": [
+        {
+            "title_length": 4,
+            "score": 1,
+            "upvote_ratio": 1.0,
+            "num_comments": 3,
+            "engagement": 4,
+            "post_carbon_gCO2e": 0.173
+        }
+    ]
+}

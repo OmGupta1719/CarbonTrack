@@ -1,0 +1,27 @@
+# Core dependencies
+flask
+flask-cors
+requests
+
+# For OCR / image processing (if your backend handles OCR)
+opencv-python
+pytesseract
+easyocr
+numpy
+pillow
+
+# For data handling / storage
+pandas
+
+# For security / environment config
+python-dotenv
+
+# For async / performance
+aiohttp
+
+# Optional (if you’re using FastAPI or similar)
+fastapi
+uvicorn
+
+# For backend utils / logging
+loguru
