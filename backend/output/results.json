@@ -6,10 +6,12 @@
         "link_karma": 1,
         "total_posts": 2,
         "total_comments": 4,
+        "total_self_posts": 1,
+        "total_video_posts": 0,
         "total_upvotes_posts": 2,
         "total_downvotes_posts": 0,
         "media_intensity": 0.25,
-        "total_carbon_gCO2e": 0.348
+        "total_carbon_gCO2e": 0.108
     },
     "detailed": [
         {
@@ -25,7 +27,7 @@
             "is_self": true,
             "engagement": 2,
             "media_intensity": 0,
-            "post_carbon_gCO2e": 0.115
+            "post_carbon_gCO2e": 0.032
         },
         {
             "title_length": 4,
@@ -40,7 +42,7 @@
             "is_self": false,
             "engagement": 4,
             "media_intensity": 0.5,
-            "post_carbon_gCO2e": 0.173
+            "post_carbon_gCO2e": 0.016
         }
     ]
 }
