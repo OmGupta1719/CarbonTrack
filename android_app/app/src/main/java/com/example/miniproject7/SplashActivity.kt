@@ -11,8 +11,16 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         val btnSignUp = findViewById<Button>(R.id.btnSignUp)
+        val btnLogin = findViewById<Button>(R.id.btnLogin)
+
         btnSignUp.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
+            startActivity(Intent(this, SignupActivity::class.java))
+            // optional: finish() to prevent going back to splash
+            finish()
+        }
+
+        btnLogin.setOnClickListener {
+            startActivity(Intent(this, SignupActivity::class.java))
             // optional: finish() to prevent going back to splash
             finish()
         }

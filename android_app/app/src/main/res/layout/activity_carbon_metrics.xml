@@ -1,207 +1,267 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/white"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#E8F5E9">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:gravity="center_horizontal"
+    <!-- App Header / Toolbar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topAppBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/green_mid"
+        android:elevation="0dp"
+        app:title="CarbonTrack"
+        app:titleTextColor="@android:color/white"
+        app:titleCentered="true"
+        android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"
+        app:layout_collapseMode="pin" />
 
-        <!-- Header Card -->
+    <!-- ScrollView content placed BELOW the toolbar -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:padding="10dp">
+
+        <!-- Your existing LinearLayout -->
         <LinearLayout
-            android:orientation="vertical"
-            android:background="@drawable/card_bg_green"
-            android:padding="20dp"
-            android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="4dp"
-            android:gravity="center">
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
+            <!-- Header Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TooGlamToGiveADamn_"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="#1B5E20" />
+
+                    <TextView
+                        android:id="@+id/accountAge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Account Age: 3 days"
+                        android:textColor="#388E3C"
+                        android:textSize="16sp"
+                        android:layout_marginTop="4dp" />
+
+                    <ProgressBar
+                        android:id="@+id/carbonProgress"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginTop="12dp"
+                        android:progressTint="#4CAF50"
+                        android:max="100"
+                        android:progress="35" />
+
+                    <TextView
+                        android:id="@+id/carbonSummary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0.348 gCO₂e emitted"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#2E7D32"
+                        android:layout_marginTop="8dp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Metrics Section -->
             <TextView
-                android:text="Reddit Carbon Footprint"
-                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Activity Metrics"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                android:textSize="20sp"
-                android:layout_marginBottom="8dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textColor="#1B5E20"
+                android:layout_marginBottom="8dp" />
 
-            <TextView
-                android:id="@+id/tvTotalCarbon"
-                android:text="0.348 gCO₂e"
-                android:textColor="@color/white"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <!-- Metrics Grid Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="#FFFFFF">
 
-            <TextView
-                android:text="Total Estimated Emissions"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="0dp"
+                    android:gravity="center">
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/metrics_title"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Activity Breakdown"-->
+<!--                        android:textColor="#388E3C"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textSize="18sp"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:layout_marginTop="4dp" />-->
+
+                    <!-- The Grid where you can add more metrics -->
+                    <GridLayout
+                        android:id="@+id/metrics_grid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:columnCount="2"
+                        android:useDefaultMargins="true"
+                        android:alignmentMode="alignMargins"
+                        android:rowOrderPreserved="false"
+                        android:padding="8dp"
+                        android:paddingBottom="20dp">
+
+                        <include
+                            android:id="@+id/posts_card"
+                            layout="@layout/metric_card"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_rowWeight="1"
+                            android:layout_margin="6dp" />
+
+                        <include
+                            android:id="@+id/comments_card"
+                            layout="@layout/metric_card"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_rowWeight="1"
+                            android:layout_margin="6dp" />
+
+                        <include
+                            android:id="@+id/upvotes_card"
+                            layout="@layout/metric_card"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_rowWeight="1"
+                            android:layout_margin="6dp" />
+
+                        <include
+                            android:id="@+id/downvotes_card"
+                            layout="@layout/metric_card"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_rowWeight="1"
+                            android:layout_margin="6dp" />
+
+                        <include
+                            android:id="@+id/media_card"
+                            layout="@layout/metric_card"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_rowWeight="1"
+                            android:layout_margin="6dp" />
+
+                        <include
+                            android:id="@+id/carbon_card"
+                            layout="@layout/metric_card"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_rowWeight="1"
+                            android:layout_margin="6dp" />
+
+                    </GridLayout>
+
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Additional Metrics -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Engagement Score"
+                        android:textColor="#4CAF50"
+                        android:textStyle="bold"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/engagement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="6 interactions"
+                        android:textSize="18sp"
+                        android:textColor="#2E7D32"
+                        android:layout_marginTop="4dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Chart Placeholder -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="80dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="(Chart Placeholder: Carbon Trends)"
+                    android:gravity="center"
+                    android:textColor="#9E9E9E" />
+            </androidx.cardview.widget.CardView>
+
         </LinearLayout>
+    </ScrollView>
 
-        <!-- Metric Cards -->
-        <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <!-- Floating Refresh Button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/refreshButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="24dp"
+        android:contentDescription="Refresh"
+        app:backgroundTint="#4CAF50"
+        app:srcCompat="@android:drawable/ic_popup_sync" />
 
-            <!-- Posts -->
-            <LinearLayout
-                android:orientation="vertical"
-                android:background="@drawable/card_bg_white"
-                android:padding="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:text="Posts"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/tvPosts"
-                    android:text="2"
-                    android:textSize="22sp"
-                    android:textColor="@color/green"
-                    android:layout_marginTop="4dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:text="Posts made"
-                    android:textSize="12sp"
-                    android:textColor="@color/gray"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <!-- Comments -->
-            <LinearLayout
-                android:orientation="vertical"
-                android:background="@drawable/card_bg_white"
-                android:padding="16dp"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:text="Comments"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/tvComments"
-                    android:text="4"
-                    android:textSize="22sp"
-                    android:textColor="@color/green"
-                    android:layout_marginTop="4dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:text="Comments made"
-                    android:textSize="12sp"
-                    android:textColor="@color/gray"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Bottom Row -->
-        <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <!-- Media Intensity -->
-            <LinearLayout
-                android:orientation="vertical"
-                android:background="@drawable/card_bg_white"
-                android:padding="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:text="Media Intensity"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/tvMediaIntensity"
-                    android:text="0.25"
-                    android:textSize="22sp"
-                    android:textColor="@color/green"
-                    android:layout_marginTop="4dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:text="Average media load"
-                    android:textSize="12sp"
-                    android:textColor="@color/gray"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <!-- Engagement -->
-            <LinearLayout
-                android:orientation="vertical"
-                android:background="@drawable/card_bg_white"
-                android:padding="16dp"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:text="Engagement"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/tvEngagement"
-                    android:text="6"
-                    android:textSize="22sp"
-                    android:textColor="@color/green"
-                    android:layout_marginTop="4dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:text="Total interactions"
-                    android:textSize="12sp"
-                    android:textColor="@color/gray"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
