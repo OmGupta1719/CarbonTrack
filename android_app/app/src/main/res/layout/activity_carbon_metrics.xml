@@ -60,7 +60,7 @@
                         android:id="@+id/accountAge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Account Age: 3 days"
+                        android:text="Account Age: 0 days"
                         android:textColor="#388E3C"
                         android:textSize="16sp"
                         android:layout_marginTop="4dp" />
@@ -79,7 +79,7 @@
                         android:id="@+id/carbonSummary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0.348 gCO₂e emitted"
+                        android:text="0 gCO₂e emitted"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="#2E7D32"
@@ -226,7 +226,7 @@
                         android:id="@+id/engagement"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="6 interactions"
+                        android:text="0 interactions"
                         android:textSize="18sp"
                         android:textColor="#2E7D32"
                         android:layout_marginTop="4dp" />

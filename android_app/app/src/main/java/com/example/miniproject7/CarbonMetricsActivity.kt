@@ -18,9 +18,30 @@ class CarbonMetricsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_carbon_metrics)
 
+        // Set metric titles (don't change layout)
+        findViewById<View>(R.id.posts_card)
+            .findViewById<TextView>(R.id.metric_title).text = "Posts"
+
+        findViewById<View>(R.id.comments_card)
+            .findViewById<TextView>(R.id.metric_title).text = "Comments"
+
+        findViewById<View>(R.id.upvotes_card)
+            .findViewById<TextView>(R.id.metric_title).text = "Upvotes"
+
+        findViewById<View>(R.id.downvotes_card)
+            .findViewById<TextView>(R.id.metric_title).text = "Downvotes"
+
+        findViewById<View>(R.id.media_card)
+            .findViewById<TextView>(R.id.metric_title).text = "Media Intensity"
+
+        findViewById<View>(R.id.carbon_card)
+            .findViewById<TextView>(R.id.metric_title).text = "Carbon Emission"
+
+
         // Header views
         val usernameView = findViewById<TextView>(R.id.username)
         val accountAgeView = findViewById<TextView>(R.id.accountAge)
+        val carbonSummary = findViewById<TextView>(R.id.carbonSummary)
 
         // Metric cards: find the root view of include, then the TextView inside
         val postsCard = findViewById<View>(R.id.posts_card).findViewById<TextView>(R.id.metric_value)
@@ -34,7 +55,7 @@ class CarbonMetricsActivity : AppCompatActivity() {
         refreshButton.setOnClickListener {
             Toast.makeText(this, "Fetching latest metrics...", Toast.LENGTH_SHORT).show()
             refreshButton.isEnabled = false
-            fetchMetrics(usernameView, accountAgeView, postsCard, commentsCard, mediaCard, carbonCard) {
+            fetchMetrics(usernameView, accountAgeView, postsCard, commentsCard, mediaCard, carbonCard, carbonSummary) {
                 // Re-enable button after fetch
                 runOnUiThread { refreshButton.isEnabled = true }
             }
@@ -48,11 +69,19 @@ class CarbonMetricsActivity : AppCompatActivity() {
         commentsView: TextView,
         mediaView: TextView,
         carbonView: TextView,
+        carbonSummary: TextView,
         onComplete: (() -> Unit)? = null
     ) {
+
+//        FOR EMULATOR
         val request = Request.Builder()
             .url("http://10.0.2.2:5000/calculate") // Emulator localhost
             .build()
+
+        //FOR PHONE
+//        val request = Request.Builder()
+//            .url("http://<IP-ADDRESS>/calculate") // Emulator localhost
+//            .build()
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -90,6 +119,7 @@ class CarbonMetricsActivity : AppCompatActivity() {
                             commentsView.text = comments.toString()
                             mediaView.text = String.format("%.2f", media)
                             carbonView.text = String.format("%.2f gCO₂e", carbon)
+                            carbonSummary.text = String.format("%.2f gCO₂e emitted", carbon)
                             onComplete?.invoke()
                         }
                     } catch (e: Exception) {
