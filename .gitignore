@@ -53,3 +53,6 @@ google-services.json
 
 
 backend/venv/
+backend/analysis/__pycache__/
+backend/config/__pycache__/
+backend/reddit_api/__pycache__/
