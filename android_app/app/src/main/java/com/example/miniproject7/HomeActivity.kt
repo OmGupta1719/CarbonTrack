@@ -11,7 +11,7 @@ HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         val tv = findViewById<TextView>(R.id.tvWelcome)
-        val email = intent.getStringExtra("userEmail")
-        tv.text = "Welcome, ${email ?: "User"}!"
+        val name = intent.getStringExtra("userName")
+        tv.text = "Welcome, ${name ?: "User"}!"
     }
 }

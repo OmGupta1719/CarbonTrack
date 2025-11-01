@@ -20,8 +20,7 @@ class SplashActivity : AppCompatActivity() {
         }
 
         btnLogin.setOnClickListener {
-            startActivity(Intent(this, SignupActivity::class.java))
-            // optional: finish() to prevent going back to splash
+            startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
     }

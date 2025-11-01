@@ -1,22 +1,22 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <!-- Button background color -->
-    <solid android:color="@color/green_mid" />
+    <!-- Solid green fill -->
+    <solid android:color="@color/green" />
 
-    <!-- Rounded corners -->
-    <corners android:radius="30dp" />
+    <!-- Smooth rounded corners -->
+    <corners android:radius="28dp" />
 
-    <!-- Optional shadow/border -->
+    <!-- Subtle border for definition -->
     <stroke
         android:width="2dp"
-        android:color="@color/green_dark" />
+        android:color="@color/green" />
 
-    <!-- Padding inside button -->
+    <!-- Internal padding to make text look balanced -->
     <padding
-        android:left="16dp"
-        android:top="10dp"
-        android:right="16dp"
-        android:bottom="10dp" />
+        android:left="20dp"
+        android:top="12dp"
+        android:right="20dp"
+        android:bottom="12dp" />
 
 </shape>
