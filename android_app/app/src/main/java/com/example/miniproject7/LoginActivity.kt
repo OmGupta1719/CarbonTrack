@@ -53,6 +53,10 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 // TODO: Add login logic here (Firebase/Auth API/etc.)
                 Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, HomeActivity::class.java)
+                intent.putExtra("userName", email)
+                startActivity(intent)
+                finish()
             }
         }
 
