@@ -9,6 +9,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class CarbonMetricsActivity : AppCompatActivity() {
 
@@ -80,7 +82,7 @@ class CarbonMetricsActivity : AppCompatActivity() {
 
         //FOR PHONE
 //        val request = Request.Builder()
-//            .url("http://<IP-ADDRESS>/calculate") // Emulator localhost
+//            .url("http://192.168.53.19:5000/calculate") // Emulator localhost
 //            .build()
 
         client.newCall(request).enqueue(object : Callback {
@@ -120,8 +122,113 @@ class CarbonMetricsActivity : AppCompatActivity() {
                             mediaView.text = String.format("%.2f", media)
                             carbonView.text = String.format("%.2f gCO₂e", carbon)
                             carbonSummary.text = String.format("%.2f gCO₂e emitted", carbon)
+
+                            // Awareness Views
+                            val equivalenceView = findViewById<TextView>(R.id.equivalenceText)
+                            val recommendationView = findViewById<TextView>(R.id.recommendationText)
+                            val funFactView = findViewById<TextView>(R.id.funFactText)
+                            val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.topAppBar)
+                            val progress = findViewById<android.widget.ProgressBar>(R.id.carbonProgress)
+
+                            // --- Calculate dynamic equivalences ---
+                            val carKm = carbon / 120.0 // avg car emits 120g CO₂ per km
+                            val flightMin = carbon / 90.0 // short flight per min ~90g
+                            val treesNeeded = carbon / 21000.0 // 1 tree absorbs 21kg (21000g)
+
+                            val equivalence = String.format(
+                                "Your CO₂ = %.1f km of car travel 🚗 or %.2f trees 🌳",
+                                carKm, treesNeeded
+                            )
+                            equivalenceView.text = equivalence
+
+                            // --- Smart Recommendations ---
+//                            CHANGE
+                            val jsonBody = JSONObject().apply {
+                                put("summary", JSONObject().apply {
+                                    put("username", "TooGlamToGiveADamn_")
+                                    put("account_age_days", 120)
+                                    put("total_posts", 35)
+                                    put("total_comments", 60)
+                                    put("total_video_posts", 8)
+                                    put("media_intensity", 0.73)
+                                    put("total_carbon_gCO2e", 3.247)
+                                })
+                            }
+
+                            val mediaType = "application/json; charset=utf-8".toMediaType()
+                            val requestBody = jsonBody.toString().toRequestBody(mediaType)
+
+
+                            val request = Request.Builder()
+                                .url("http://10.0.2.2:5000/recommend") // 👈 Use 10.0.2.2 for localhost in Android Emulator
+                                .post(requestBody)
+                                .build()
+
+                            client.newCall(request).enqueue(object : Callback {
+                                override fun onFailure(call: Call, e: IOException) {
+                                    runOnUiThread {
+                                        recommendationView.text = "Request failed: ${e.message}"
+                                    }
+                                }
+
+                                override fun onResponse(call: Call, response: Response) {
+                                    response.use {
+                                        if (!it.isSuccessful) {
+                                            runOnUiThread {
+                                                recommendationView.text = "Server error: ${it.code}"
+                                            }
+                                            return
+                                        }
+
+                                        val responseText = it.body?.string()
+                                        val json = JSONObject(responseText ?: "{}")
+                                        val recommendation = json.optString("recommendation", "No recommendation found")
+
+                                        runOnUiThread {
+                                            recommendationView.text = recommendation
+                                        }
+
+                                    }
+                                }
+                            })
+
+                            // --- Fun Facts Rotate Randomly ---
+                            val funFacts = listOf(
+                                "Streaming 1 hour of HD video emits ~36g CO₂ 🎬",
+                                "Dark mode can save up to 30% of display energy ⚫",
+                                "A single email emits ~4g of CO₂ 📧",
+                                "Using Wi-Fi instead of mobile data saves ~20% energy 📶",
+                                "Recycling your old phone prevents 55 kg CO₂ waste ♻️"
+                            )
+                            funFactView.text = funFacts.random()
+
+                            // --- Dynamic Mood Indicator ---
+                            val color = when {
+                                carbon > 80 -> android.graphics.Color.parseColor("#D32F2F") // Red
+                                carbon > 50 -> android.graphics.Color.parseColor("#FFA000") // Orange
+                                carbon > 20 -> android.graphics.Color.parseColor("#FBC02D") // Yellow
+                                else -> android.graphics.Color.parseColor("#2E7D32") // Green
+                            }
+
+                            // Animate smooth transitions
+                            val colorAnim = android.animation.ValueAnimator.ofArgb(
+                                (toolbar.background as? android.graphics.drawable.ColorDrawable)?.color ?: color,
+                                color
+                            )
+                            colorAnim.duration = 800
+                            colorAnim.addUpdateListener { anim ->
+                                val c = anim.animatedValue as Int
+                                toolbar.setBackgroundColor(c)
+                                progress.progressTintList = android.content.res.ColorStateList.valueOf(c)
+                            }
+                            colorAnim.start()
+
+                            progress.progress = (carbon.coerceAtMost(100.0)).toInt()
+
                             onComplete?.invoke()
                         }
+
+
                     } catch (e: Exception) {
                         runOnUiThread {
                             Toast.makeText(this@CarbonMetricsActivity, "Invalid response format", Toast.LENGTH_SHORT).show()
